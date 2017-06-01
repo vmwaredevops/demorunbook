@@ -1,0 +1,42 @@
+# Create the infrastructure for our app.
+
+template = <<END
+---
+config:
+  metadata:
+    name: demorunbook
+resources:
+  demorunbook_app:
+    type: Std::AssemblyChef
+    server_options:
+      image_id: "ami-d0f89fb9"
+      flavor_id: "t1.micro"
+      key_name: "dev-client-ec2"
+      groups: ["launch-wizard-2"]
+      provision_action: "LinkedClone"
+      clone_from: "linux-base-01a"
+      clone_snapshot: "latest"
+    packages:
+      - {name: "demorunbook", type: "recipe"}
+    property_groups: ["Chef"]
+...
+END
+
+engine.consume(template)
+
+def create()
+    engine.create("demorunbook_app")
+end
+
+def import()
+    engine.import("demorunbook_app")
+end
+
+def destroy()
+    engine.destroy("demorunbook_app")
+end
+
+def custom()
+    engine.command("demorunbook_app", "list --purge")
+end
+
