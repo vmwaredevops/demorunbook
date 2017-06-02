@@ -23,6 +23,7 @@ resources:
       description: "DemoRunBook App Server"
     packages:
       - {name: "demorunbook", type: "recipe"}
+      - {name: "redisio", type: "recipe"}
     property_groups: ["Chef"]
   networkProfile:
     type: Std::ExistingNetwork
