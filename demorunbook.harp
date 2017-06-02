@@ -4,8 +4,8 @@ template = <<END
 ---
 config:
   metadata:
-    name: demorunbook-multiXX
-    version: 1.2
+    name: demorunbook
+    version: 1.1
 resources:
   demorunbook_app:
     type: Std::AssemblyChef
@@ -22,22 +22,7 @@ resources:
       description: "DemoRunBook App Server"
     packages:
       - {name: "demorunbook", type: "recipe"}
-    property_groups: ["Chef"]
-  demorunbook_redis:
-    type: Std::AssemblyChef
-    server_options:
-      imageId: ami-618fab04
-      instanceType: t2.micro
-      groups: ["default"]
-      subnet_id: subnet-004e564a
-      provision_action: "LinkedClone"
-      clone_from: "ubuntu-base-01a"
-      clone_snapshot: "latest"
-      network_profile: { "ref": "networkProfile" }
-      customization_spec: "Linux"
-      description: "DemoRunBook Redis Server"
-    packages:
-      - {name: "redis", type: "role"}
+      - {name: "redisio", type: "recipe"}
     property_groups: ["Chef"]
   networkProfile:
     type: Std::ExistingNetwork
@@ -49,17 +34,14 @@ engine.consume(template)
 
 def create()
     engine.create("demorunbook_app")
-    engine.create("demorunbook_redis")
 end
 
 def import()
     engine.import("demorunbook_app")
-    engine.import("demorunbook_redis")
 end
 
 def destroy()
     engine.destroy("demorunbook_app")
-    engine.destroy("demorunbook_redis")
 end
 
 def custom()
