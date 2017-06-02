@@ -1,13 +1,13 @@
 {
-  "name": "application-name",
+  "name": "demorunbook",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "connect-redis": "~1.4.0",
     "express": "2.5.8",
-    "jade": ">= 0.0.1",
     "localStorage": "~1.0.0",
-    "redis": "~0.7.2",
-    "connect-redis": "~1.4.0"
+    "pug": "^2.0.0-rc.1",
+    "redis": "~0.7.2"
   },
   "scripts": {
     "start": "nodejs app.js"
