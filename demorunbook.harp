@@ -5,6 +5,7 @@ template = <<END
 config:
   metadata:
     name: demorunbook
+    version: 1.1
 resources:
   demorunbook_app:
     type: Std::AssemblyChef
@@ -14,11 +15,17 @@ resources:
       key_name: "dev-client-ec2"
       groups: ["launch-wizard-2"]
       provision_action: "LinkedClone"
-      clone_from: "linux-base-01a"
+      clone_from: "ubuntu-base-01a"
       clone_snapshot: "latest"
+      network_profile: { "ref": "networkProfile" }
+      customization_spec: "Linux"
+      description: "DemoRunBook App Server"
     packages:
       - {name: "demorunbook", type: "recipe"}
     property_groups: ["Chef"]
+  networkProfile:
+    type: Std::ExistingNetwork
+    network_profile: "corp-192.168.110.0/24"
 ...
 END
 
