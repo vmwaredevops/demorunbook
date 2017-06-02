@@ -10,10 +10,10 @@ resources:
   demorunbook_app:
     type: Std::AssemblyChef
     server_options:
-      image_id: "ami-d0f89fb9"
-      flavor_id: "t1.micro"
-      key_name: "dev-client-ec2"
-      groups: ["launch-wizard-2"]
+      imageId: ami-618fab04
+      instanceType: t2.micro
+      groups: ["default"]
+      subnet_id: subnet-004e564a
       provision_action: "LinkedClone"
       clone_from: "ubuntu-base-01a"
       clone_snapshot: "latest"
