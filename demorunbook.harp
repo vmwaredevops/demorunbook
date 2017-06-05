@@ -49,6 +49,7 @@ engine.consume(template)
 
 def create()
     engine.create("demorunbook_app")
+    engine.create("demorunbook_redis")
 end
 
 def import()
