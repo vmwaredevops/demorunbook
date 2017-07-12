@@ -37,7 +37,7 @@ resources:
       customization_spec: "Linux"
       description: "DemoRunBook Redis Server"
     packages:
-      - {name: "redis", type: "recipe"}
+      - {name: "redis", type: "role"}
     property_groups: ["Chef"]
   networkProfile:
     type: Std::ExistingNetwork
