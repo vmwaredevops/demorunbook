@@ -8,43 +8,24 @@ config:
     version: 1.2
 resources:
   demorunbook_app:
-    type: Std::AssemblyChef
+    extends: baseChefAssembly
     server_options:
-      imageId: ami-618fab04
-      instanceType: t2.micro
-      groups: ["default"]
-      subnet_id: subnet-004e564a
-      provision_action: "LinkedClone"
-      clone_from: "ubuntu-base-01a"
-      clone_snapshot: "latest"
-      network_profile: { "ref": "networkProfile" }
-      customization_spec: "Linux"
       description: "DemoRunBook App Server"
     packages:
       - {name: "demorunbook", type: "recipe"}
-    property_groups: ["Chef"]
   demorunbook_redis:
-    type: Std::AssemblyChef
+    extends: baseChefAssembly
     server_options:
-      imageId: ami-618fab04
-      instanceType: t2.micro
-      groups: ["default"]
-      subnet_id: subnet-004e564a
-      provision_action: "LinkedClone"
-      clone_from: "ubuntu-base-01a"
-      clone_snapshot: "latest"
-      network_profile: { "ref": "networkProfile" }
-      customization_spec: "Linux"
       description: "DemoRunBook Redis Server"
     packages:
       - {name: "redis", type: "role"}
-    property_groups: ["Chef"]
   networkProfile:
     type: Std::ExistingNetwork
     network_profile: "corp-192.168.110.0/24"
 ...
 END
 
+engine.consume("http://harp-onecloud.vmware.local:9292/harps/common.yaml")
 engine.consume(template)
 
 def create()

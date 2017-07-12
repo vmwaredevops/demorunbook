@@ -1,0 +1,28 @@
+
+resources:
+  baseComputeInstance:
+    type: Std::ComputeInstance
+    # Only relevant for AWS
+    imageId: ami-d0f89fb9
+    instanceType: t1.micro
+    description: base-instance
+    # LinkedClone and the clone_* are VMW specific
+    provision_action: LinkedClone
+    clone_from: linux-base-01a
+    clone_snapshot: latest
+    network_profile: { "ref": "networkProfile" }
+  baseChefAssembly:
+    type: Std::AssemblyChef
+    server_options:
+      image_id: "ami-d0f89fb9"
+      flavor_id: "t1.micro"
+      key_name: "dev-client-ec2"
+      groups: ["launch-wizard-2"]
+      provision_action: "LinkedClone"
+      clone_from: "linux-base-01a"
+      clone_snapshot: "latest"
+    packages: []
+    property_groups: ["Chef"]
+  networkProfile:
+    type: Std::ExistingNetwork
+    network_profile: "corp-192.168.110.0/24"
