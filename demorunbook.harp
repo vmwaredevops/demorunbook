@@ -22,7 +22,22 @@ resources:
       description: "DemoRunBook App Server"
     packages:
       - {name: "demorunbook", type: "recipe"}
-      - {name: "redisio", type: "recipe"}
+    property_groups: ["Chef"]
+  demorunbook_redis:
+    type: Std::AssemblyChef
+    server_options:
+      imageId: ami-618fab04
+      instanceType: t2.micro
+      groups: ["default"]
+      subnet_id: subnet-004e564a
+      provision_action: "LinkedClone"
+      clone_from: "ubuntu-base-01a"
+      clone_snapshot: "latest"
+      network_profile: { "ref": "networkProfile" }
+      customization_spec: "Linux"
+      description: "DemoRunBook App Server"
+    packages:
+      - {name: "redis", type: "role"}
     property_groups: ["Chef"]
   networkProfile:
     type: Std::ExistingNetwork
@@ -47,4 +62,3 @@ end
 def custom()
     engine.command("demorunbook_app", "list --purge")
 end
-
