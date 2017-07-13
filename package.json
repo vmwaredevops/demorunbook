@@ -1,6 +1,6 @@
 {
   "name": "demorunbook",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "connect-redis": "~1.4.0",
