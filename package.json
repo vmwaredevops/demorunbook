@@ -1,15 +1,43 @@
 {
   "name": "demorunbook",
+  "description": "Simple demo application to demonstrate various deployment and DevOps configurations",
   "version": "0.0.1",
+  "main": "app.js",
   "private": true,
   "dependencies": {
     "connect-redis": "~1.4.0",
-    "express": "2.5.8",
+    "express": "~4.16.1",
     "localStorage": "~1.0.0",
     "pug": "^2.0.0-rc.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
     "redis": "~0.7.2"
   },
   "scripts": {
-    "start": "nodejs app.js"
+    "start": "node bin/www",
+    "test": "nyc --reporter=html --reporter=text mocha --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vmwaredevops/demorunbook.git"
+  },
+  "keywords": [
+    "demo",
+    "app",
+    "devops",
+    "vmware"
+  ],
+  "bugs": {
+    "url": "https://github.com/vmwaredevops/demorunbook/issues"
+  },
+  "homepage": "https://github.com/vmwaredevops/demorunbook#readme",
+  "devDependencies": {
+    "coveralls": "^3.0.3",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "supertest": "^4.0.2"
   }
 }

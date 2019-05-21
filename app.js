@@ -4,35 +4,44 @@ Demo RunBook example for VM.
  */
 
 var express = require('express'),
-    routes = require('./routes/routes');
+    routes = require('./routes/routes'),
+    path = require('path'),
+    logger = require('morgan');
 
-var app = module.exports = express.createServer();
+var app = express();
 
 // Configuration
 
-app.configure(function(){
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'pug');
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
-});
-
-app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
-
-app.configure('production', function(){
-  app.use(express.errorHandler());
-});
-
+app.set('views', __dirname + '/views');
+app.set('view engine', 'pug');
+//app.use(express.bodyParser());
+//app.use(express.methodOverride());
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/public'));
 // Routes
 
 app.get('/', routes.index);
 app.get('/about', routes.about);
 app.get('/todo', routes.todo);
 app.post('/save', routes.saveTodo);
-app.listen(3000, function(){
-  console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+
+// catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
+
+module.exports = app;
