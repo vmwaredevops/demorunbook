@@ -7,6 +7,9 @@ pipeline {
         ansiColor('xterm')
         timestamps()
     }
+    environment {
+        HOME="."
+    }
     stages {
         stage ('Build') {
             steps {
