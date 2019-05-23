@@ -10,3 +10,7 @@ install:
   - npm install
 script:
   - npm test
+after_success:
+  - pip install --user codecov
+  - nyc report --reporter=text-lcov > coverage/lcov.info
+  - codecov --file coverage/lcov.info
