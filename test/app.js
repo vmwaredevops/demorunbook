@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('../app');
 
-describe('Index', function () {
+describe('Get index', function () {
     it('responds to /', function testSlash(done) {
         request(app)
             .get('/')

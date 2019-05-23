@@ -9,4 +9,4 @@ node_js:
 install:
   - npm install
 script:
-  - echo need local redis to run npm test
+  - npm test
