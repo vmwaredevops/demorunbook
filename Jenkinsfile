@@ -18,13 +18,13 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh label: 'NPM test', script: "echo need local Redis to run npm test"
+                sh label: 'NPM test', script: "npm test"
             }
         }
     }
     post {
         always {
-            archiveArtifacts artifacts: 'coverage/*', fingerprint: false
+            archiveArtifacts artifacts: 'coverage/**/*', fingerprint: false
         }
     }
 } 
